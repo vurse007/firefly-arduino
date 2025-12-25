@@ -23,8 +23,8 @@ void setup() {
   pinMode(PWM_PIN, OUTPUT); //configure p3 as signal output
   Serial.begin(9600); //start communication channel with computer @ 9600 baud (speed)
   
-  Serial.println("ems waveform generator started.") //serial prints
-  Serial.println("printing parameters:")
+  Serial.println("ems waveform generator started."); //serial prints
+  Serial.println("printing parameters:");
   Serial.println("frequency (hz): "); Serial.print(FREQUENCY);
   Serial.println("pulse width (microseconds): "); Serial.print(PULSE_WIDTH);
   Serial.println("intensity (0-255): "); Serial.print(INTENSITY);

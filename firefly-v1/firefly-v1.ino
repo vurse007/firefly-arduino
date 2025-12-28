@@ -1,4 +1,5 @@
 const int PWM_PIN = 3; //output pin for voltage
+const int BUTTON_PIN = 7;
 
 // ems parameters
 // ~
@@ -17,10 +18,10 @@ unsigned long burstStartTime = 0; //MILISECONDS -> in 5 or 2 second intervals, l
 bool burstActive = true; //starts true so stimulation starts at program start
 bool pulseState = false; //tracks individual pulse state to prevent going over PULSE_WIDTH length
 
-
 void setup() {
   // put your setup code here, to run once:
   pinMode(PWM_PIN, OUTPUT); //configure p3 as signal output
+  pinMode(BUTTON_PIN, INPUT);
   Serial.begin(9600); //start communication channel with computer @ 9600 baud (speed)
   
   Serial.println("ems waveform generator started."); //serial prints
@@ -38,6 +39,12 @@ void loop() {
   // put your main code here, to run repeatedly:
   unsigned long currentMicros = micros();
   unsigned long currentMillis = millis();
+
+  //button pin code
+  if(digitalRead(BUTTON_PIN) == LOW){ //if pressed then toggle on/off
+    burstActive = !burstActive;
+    delay(500);
+  }
 
   // top layer burst period power on and shut off logic:
   if (burstActive == true && ((currentMillis - burstStartTime) >= BURST_ON_TIME)) { //if the burst has been running and its time to turn it off then:
